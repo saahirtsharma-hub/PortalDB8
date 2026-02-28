@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Windows 95 Portal</title>
+<style>
+  body { background-color: #008080; font-family: 'Tahoma', sans-serif; margin: 0; overflow: hidden; }
+
+  #desktop {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 80px);
+    grid-template-rows: repeat(auto-fill, 100px);
+    gap: 20px;
+    padding: 20px;
+    height: calc(100vh - 40px);
+  }
+
+  .icon {
+    width: 80px; text-align: center; color: white; font-size: 11px;
+    cursor: pointer; text-shadow: 1px 1px black;
+  }
+
+  .icon img { width: 32px; display: block; margin: 0 auto 5px; }
+
+  .taskbar {
+    position: fixed; bottom: 0; width: 100%; height: 35px;
+    background-color: #c0c0c0; border-top: 2px solid white;
+    display: flex; align-items: center; padding: 2px;
+  }
+
+  .btn {
+    height: 25px; font-weight: bold; background-color: #c0c0c0;
+    border: 2px solid; border-color: white black black white;
+    padding: 0 10px; cursor: pointer; margin-right: 10px;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+  <div id="desktop"></div>
+
+  <div class="taskbar">
+    <button class="btn" onclick="addNewWebsite()">+ Add New Website</button>
+  </div>
+
+  <script>
+    // Updated list with your custom names
+    let myApps = [
+      { name: "Google", url: "https://www.google.com" },
+      { name: "Vids", url: "https://vids.google.com" },
+      { name: "Forms", url: "https://forms.google.com" },
+      { name: "Main sheet", url: "https://docs.google.com/document/d/1JMLDi-T5HT9Bf5GAbkCOe7wm88Y4gLhfjvaU8xzCF1g/edit" },
+      { name: "apps and github websites", url: "https://docs.google.com/document/d/1ir-xOZtXJdM7v86k-LzAGsOUgR0CGIoDdRk9eiQXthI/edit" },
+      { name: "Gmail", url: "https://mail.google.com" },
+      { name: "Drive", url: "https://drive.google.com" },
+      { name: "Docs", url: "https://docs.google.com" },
+      { name: "Sheets", url: "https://sheets.google.com" },
+      { name: "Slides", url: "https://slides.google.com" },
+      { name: "Maps", url: "https://maps.google.com" },
+      { name: "Meet", url: "https://meet.google.com" },
+      { name: "GitHub", url: "https://www.github.com" }
+    ];
+
+    function renderDesktop() {
+      const desktop = document.getElementById("desktop");
+      desktop.innerHTML = ""; 
+
+      myApps.forEach((app) => {
+        const iconDiv = document.createElement("div");
+        iconDiv.className = "icon";
+        iconDiv.onclick = () => window.open(app.url, '_blank');
+        
+        iconDiv.innerHTML = `
+          <img src="https://win98icons.alexmeub.com/icons/png/world-0.png">
+          ${app.name}
+        `;
+        desktop.appendChild(iconDiv);
+      });
+    }
+
+    function addNewWebsite() {
+      const name = prompt("Enter the Website Name:");
+      let url = prompt("Enter the Website URL:");
+
+      if (name && url) {
+        if (!url.startsWith("http")) {
+          url = "https://" + url;
+        }
+        myApps.push({ name: name, url: url });
+        renderDesktop();
+      }
+    }
+
+    renderDesktop();
+  </script>
+
+</body>
+</html>
